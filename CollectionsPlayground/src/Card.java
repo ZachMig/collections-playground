@@ -4,6 +4,13 @@ import java.util.List;
 
 public record Card(Suit suit, String face, int value) {
 	
+	enum Suit { 
+		DIAMOND,
+		HEART,
+		CLUB,
+		SPADE
+	}
+	
 	static final List<String> allFaces = Arrays.asList(
 			"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A");
 	
@@ -36,7 +43,7 @@ public record Card(Suit suit, String face, int value) {
 	
 	
 	public static Card getFaceCard(Suit suit, String abbr) {
-		return new Card(suit, abbr, "JQKA".indexOf(abbr) + 11);
+		return new Card(suit, abbr, "JQKA".indexOf(abbr) + 9);
 	}
 	
 	
@@ -45,13 +52,17 @@ public record Card(Suit suit, String face, int value) {
 		
 		for (int i = 0; i < allFaces.size(); i++) {
 			for (Suit s : Suit.values()) {
-				deck.add(new Card(s, allFaces.get(i), i+2));
+				deck.add(new Card(s, allFaces.get(i), i));
 			}
 		}
 		return deck;
 	}
 		
 	public static void printDeck(String desc, List<Card> deck, int rows) {
+		
+		System.out.println("------------");
+		System.out.println(desc);
+	
 		int cardsPerRow = deck.size() / rows;
 		
 		for (int i = 0; i < deck.size();) {
@@ -71,9 +82,3 @@ public record Card(Suit suit, String face, int value) {
 	
 }
 
-enum Suit { 
-	DIAMOND,
-	HEART,
-	CLUB,
-	SPADE
-}
