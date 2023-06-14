@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
 
 public class Main {
 
@@ -59,6 +59,38 @@ public class Main {
 		List<Card> cardsFour = List.copyOf(kingsOfClubs);
 		//cardsFour.add(aceOfHearts); // throws exception
 		Card.printDeck("Copy of Kings", cardsFour, 1);
+		
+		//shuffle() and reverse()
+		List<Card> deck = Card.getStandardDeck();
+		Card.printDeck(deck);
+		Collections.shuffle(deck);
+		Card.printDeck("Shuffled Deck", deck, 4);
+		Collections.reverse(deck);
+		Card.printDeck("Reversed Deck", deck, 4);
+		
+		var sortingAlgorithm = Comparator.comparing(Card::value).thenComparing(Card::suit);
+		
+		//Collections.sort(deck, sortingAlgorithm);
+		deck.sort(sortingAlgorithm);
+		Card.printDeck("Sorted Deck", deck, 4);
+		
+		//
+		List<Card> kings = new ArrayList<>(deck.subList(44, 48));
+		Card.printDeck("Kings", kings, 1);
+		
+		List<Card> tens = new ArrayList<>(deck.subList(32, 36));
+		Card.printDeck("Tens", tens, 1);	
+		
+		//Collections.shuffle(deck);
+		int subListIndex = Collections.indexOfSubList(deck, tens);
+		System.out.println("Index of sublist of tens in deck: " + subListIndex);
+		System.out.println("Contains call returns: " + deck.containsAll(tens));
+		
+		boolean disjoint = Collections.disjoint(deck, tens);
+		System.out.println("Disjoint = " + disjoint);
+		
+		
+		
 	}
 	
 }	
